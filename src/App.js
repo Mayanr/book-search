@@ -22,8 +22,10 @@ class App extends Component {
     <div className="App">
       <header className="App-header">
         <Search />
-      <br/>
+
+      {this.state.results.length > 0 &&
         <Results results={this.state.results}/>
+      }
       
       </header>
     </div>
