@@ -1,54 +1,47 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Input, Button, Form } from "reactstrap";
+import { Input, Button, Form, Label } from "reactstrap";
 
 class Search extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        bookTitle: "babysitters",
-        results: []
+        title: "",
       };
     }
 
-    onEnter = e => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            e.stopPropagation();
-            this.handleSearch(this.state.bookTitle);
-          }
+    handleChange = e => {
+        this.setState({
+            title: e.target.value
+        })
     }
 
-    handleSearch = (title) => {
-        axios.get(`http://openlibrary.org/search.json?title=${title}`)
-        .then(res => this.setState({
-            results: res.data.docs 
-        }, console.log(res.data.docs)))
-        .catch(err => console.log(err));
-    }
-    renderResults = e => {
-        console.log("render results" , this.state.results)
-        const { results } = this.state
-        const listBooks = results.map((book) =>
-        <li>
-            {book}
-        </li>
-        )
-        return listBooks
+    handleSubmit = e => {
+        e.preventDefault();
+        const { title } = this.state
+        console.log(title);
+        this.props.search(title)
     }
 
     render(){
         return(
             <div id="searchComp">
             <h1>This is the Search componenet</h1>
-            <Form>
-            <p>Enter a book title:</p>
-            <Input type="text" name="bookTitle" onKeyDown={this.onEnter}/>
-            </Form>
-            <Button color="success" onClick={() => this.handleSearch(this.state.bookTitle)}>
+            <Form onSubmit={this.handleSubmit}>
+            <Label for="title">Enter a book title:</Label>
+            <Input 
+                type="text" 
+                id="title"
+                name="title"
+                placeholder="ex 'Stranger Things'" 
+                onChange={this.handleChange}
+                required
+                />
+            <Button color="success">
                 Search
             </Button>
+            </Form>
             <ul className="list-group list-group-flush">
             </ul>
             </div>   
