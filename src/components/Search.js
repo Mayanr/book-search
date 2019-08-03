@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { searchTitle } from "../actions/searchAction"
+import  { connect } from "react-redux"
 
 import { Input, Button, Form, Label } from "reactstrap";
 
@@ -19,34 +20,41 @@ class Search extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { title } = this.state
-        console.log(title);
-        this.props.search(title)
+        this.props.searchTitle(this.state.title)
+        //reset the search bar to be empty again
+        this.setState({
+            title: ""
+        })
     }
 
     render(){
         return(
             <div id="searchComp">
-            <h1>This is the Search componenet</h1>
-            <Form onSubmit={this.handleSubmit}>
-            <Label for="title">Enter a book title:</Label>
-            <Input 
-                type="text" 
-                id="title"
-                name="title"
-                placeholder="ex 'Stranger Things'" 
-                onChange={this.handleChange}
-                required
-                />
-            <Button color="success">
-                Search
-            </Button>
-            </Form>
-            <ul className="list-group list-group-flush">
-            </ul>
+                <h1>The Book Search!</h1>
+                <Form onSubmit={this.handleSubmit}>
+                    <Label for="title">Enter a book title:</Label>
+                    <Input 
+                        type="text" 
+                        id="title"
+                        name="title"
+                        placeholder="ex 'Stranger Things'"
+                        value={this.state.title} 
+                        onChange={this.handleChange}
+                        required
+                    />
+                    <Button color="success">
+                        Search
+                    </Button>
+                </Form>
             </div>   
         )
     }
-
 }
-export default Search;
+
+const mapDispatchToProps = dispatch => {
+    return {
+      searchTitle: (title) => dispatch(searchTitle(title))
+    }
+  }
+
+export default connect(null, mapDispatchToProps)(Search);

@@ -1,7 +1,10 @@
 import React from "react";
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
+//redux
+import  { connect } from "react-redux"
 
-const Results = ({ results }) => {
+const Results = ({ results, searchTerm }) => {
   const bookList = results.map(book =>{
       return(
         // if there is no author_name provided, print "an unidentified author", otherwise if the array of 'author_name' is more than one person, loop through the array to print names in a more organized manner 
@@ -30,12 +33,21 @@ const Results = ({ results }) => {
 
   return (
     <div id="resultsComp">
-      <h1>This is the Results Component</h1> 
+      <p>Search results for "<b>{searchTerm}</b>"</p> 
       <ul className="book-list">
         {/* if no results are received from the search, print "no books found", otherwise print out the response list */}
-        { results.length === 0 ? <h2> No books found </h2> : <ul>{ bookList }</ul>}
+        { results.length ?  <ul>{ bookList }</ul> : <h2> No books found </h2> }
       </ul>
     </div>
   )
 }
-export default Results;
+
+const mapStateToProps = state => {
+  return{
+    results: state.results,
+    searchTerm: state.title,
+    // searching: state.searching
+  }
+}
+
+export default connect(mapStateToProps)(Results);
