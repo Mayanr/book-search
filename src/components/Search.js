@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { searchTitle } from "../actions/searchAction"
+import { searchPages } from "../actions/searchAction"
 import  { connect } from "react-redux"
 
 import { Input, Button, Form, Label } from "reactstrap";
@@ -20,7 +20,7 @@ class Search extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.searchTitle(this.state.title)
+        this.props.searchPages(this.state.title)
         //reset the search bar to be empty again
         this.setState({
             title: ""
@@ -29,8 +29,8 @@ class Search extends Component {
 
     render(){
         return(
-            <div id="searchComp">
-                <h1>The Book Search!</h1>
+            <div id="search" >
+                <h1>Welcome to the Book Search App!</h1>
                 <Form onSubmit={this.handleSubmit}>
                     <Label for="title">Enter a book title:</Label>
                     <Input 
@@ -41,8 +41,9 @@ class Search extends Component {
                         value={this.state.title} 
                         onChange={this.handleChange}
                         required
+                        minLength="3"
                     />
-                    <Button color="success">
+                    <Button color="primary">
                         Search
                     </Button>
                 </Form>
@@ -53,8 +54,8 @@ class Search extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-      searchTitle: (title) => dispatch(searchTitle(title))
+        searchPages: (title, page) => dispatch(searchPages(title, 1))
     }
-  }
+}
 
 export default connect(null, mapDispatchToProps)(Search);

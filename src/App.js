@@ -15,7 +15,7 @@ import Results from './components/Results';
 class App extends Component {
   render (){
     return (
-      <div className="App App-header">
+      <div id="app">
         <Search />
         {this.props.searching && <Results />}
       </div>
