@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-
-//redux
 import  { connect } from "react-redux"
-import { searchTitle } from "./actions/searchAction"
-
-// styles
 import './App.css';
-
-// import components
 import Search from './components/Search';
 import Results from './components/Results';
 
@@ -28,10 +21,5 @@ const mapStateToProps = state => {
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     searchTitle: (title) => dispatch(searchTitle(title))
-//   }
-// }
 
 export default connect(mapStateToProps)(App);

@@ -1,5 +1,6 @@
 #app {
   text-align: center;
+  align-items: center;
   width: 85vw;
   height: 90vh;
   margin: 0 auto;
@@ -26,17 +27,27 @@ button {
   font-size: 22px;
 }
 
-#pagination {
+ul.pagination {
   max-width: 70%;
+  margin: 0 auto;
+  padding-bottom: 2%;
+  display: flex;
+  justify-content: center;
 }
 
-/* .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+ul.pagination li {
+  padding: 5px 8px;
+  margin-top: 10px;
+}
+
+.active {
+  background-color:#BEE5EB;
   color: white;
-} */
+}
+
+/* condense pagination nav width on smaller/mobile screens */
+@media screen and (max-width: 400px) {
+  ul.pagination {
+    max-width: 280px;
+  }
+}

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { searchPages } from "../actions/searchAction"
 import  { connect } from "react-redux"
-
 import { Input, Button, Form, Label } from "reactstrap";
+
 
 class Search extends Component {
     constructor(props) {
-      super(props);
-      this.state = {
+        super(props);
+        this.state = {
         title: "",
-      };
+        };
     }
 
     handleChange = e => {
@@ -57,5 +57,6 @@ const mapDispatchToProps = dispatch => {
         searchPages: (title, page) => dispatch(searchPages(title, 1))
     }
 }
+
 
 export default connect(null, mapDispatchToProps)(Search);
