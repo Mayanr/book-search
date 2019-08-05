@@ -19,12 +19,12 @@ const Results = ({ results, title, numResults, activePage }) => {
           {typeof book.author_name ==="undefined" ? <span> an unidentified author </span>: 
             <span>
               {Array.isArray(book.author_name) && book.author_name !== "undefined"  && book.author_name.length === 1 ?
-                <span> {book.author_name}</span>:
+                <span> {book.author_name} </span>:
                 <span> 
                   {book.author_name.map((x, index) =>{
                     //add a comma after each 'author name' in the array, unless that is the last author of the array.
                       if (typeof book.author_name[index+1] === "undefined"){
-                        return <span key={index}> {x} </span>
+                        return <span key={index}> {x}  </span>
                       }
                         return <span key={index}> {x}, </span>
                     })
@@ -33,24 +33,33 @@ const Results = ({ results, title, numResults, activePage }) => {
               }
             </span> 
           } 
+          {/* display the year first published if available in API, if not, note that the data is unavailable */}
+          <br/> {book.first_publish_year ? <span> originally published in{book.first_publish_year}</span>: <span> year published unavailable</span>}
           </ListGroupItemText>
       </ListGroupItem>
     )
   })
-    const totalPages = Math.ceil(numResults/100)
+
+  // determine the total amount of pages for this search to display to user
+  const totalPages = Math.ceil(numResults/100)
+  // provide amount of search results with "," in large numbers
+  const formattedNumResults = numResults.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
   return (
     <div id="results">
-      <h2>{numResults} search results for <b>{title}</b>...</h2> 
-      <p>{ results.length>0 && <p>Page {activePage} of {totalPages} </p> }</p>
-      <ListGroup className="book-list">
-        {/* if no results are received from the search, print "no books found", otherwise print out the response list */}
-        { results.length ?  <span>{ bookList } </span>: <h2> No books found </h2> }
+    {/* if there are results, display some data to the user (number of results, their original search term with the search was conducted on, the page they're viewing out of the total number of pages) */}
+      { results.length>0 && <div><h2>{formattedNumResults} search results for <b>{title}</b>...</h2><p>Page {activePage} of {totalPages} </p></div> }
+      <ListGroup>
+        {/* if no results are received from the search, print "No results found for [the search term they entered]", otherwise print out the response list */}
+        { results.length ?  <span>{ bookList } </span>: <h2> No results found for <b>{title}</b></h2> }
       </ListGroup>
+      {/* if the number of results is greater than 100, that means there will be more than one page, so show the pagination component, 'Pages' */}
       { numResults > 100 && <Pages activePage={activePage}/> }
     </div>
   )
 }
 
+// variables needed to reference from the store
 const mapStateToProps = state => {
   return{
     results: state.results,

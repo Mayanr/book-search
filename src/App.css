@@ -3,8 +3,18 @@
   align-items: center;
   width: 85vw;
   height: 90vh;
-  margin: 0 auto;
-  margin-top:20px;
+  margin: 50px auto 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 95vh;
+}
+
+#content {
+  flex-grow: 1;
+}
+
+footer {
+  font-size: 11px;
 }
 
 #search Form{
@@ -19,7 +29,7 @@ button {
 
 #results{
   max-width:900px;
-  margin: 20px auto 0;
+  margin: 20px auto;
 }
 
 #results h2 {
@@ -27,17 +37,17 @@ button {
   font-size: 22px;
 }
 
+
 ul.pagination {
   max-width: 70%;
-  margin: 0 auto;
+  margin: 20px auto;
   padding-bottom: 2%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 
-ul.pagination li {
-  padding: 5px 8px;
-  margin-top: 10px;
+ul.pagination a {
+  padding: 7px;
 }
 
 .active {
@@ -45,9 +55,13 @@ ul.pagination li {
   color: white;
 }
 
-/* condense pagination nav width on smaller/mobile screens */
+/* condense pagination nav and app contents width on smaller/mobile screens */
 @media screen and (max-width: 400px) {
   ul.pagination {
-    max-width: 280px;
+    max-width: 100px;
+    justify-content: center;
+  }
+  #content {
+    max-width: 95%;
   }
 }

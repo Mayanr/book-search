@@ -3,7 +3,7 @@ const initState = {
     title: "",
     activePage: 1,
     searching: false,
-    numResults: 1
+    numResults: 1,
 }
 const rootReducer = (state = initState, action) => {
     switch(action.type){
