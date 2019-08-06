@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const searchPages = (title, activePage) => async dispatch => {
     try {
-        const res = await axios.get(`http://openlibrary.org/search.json?title=${title}&page=${activePage}`);
+        const res = await axios.get(`https://openlibrary.org/search.json?title=${title}&page=${activePage}`);
         dispatch({
             type: "GET_RESULTS",
             title,
