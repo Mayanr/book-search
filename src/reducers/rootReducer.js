@@ -13,7 +13,7 @@ const rootReducer = (state = initState, action) => {
                 title: action.title,
                 activePage: action.activePage,
                 searching: true,
-                numResults: action.numResults
+                numResults: action.numResults,
             }
         case "ERROR":
             return state
@@ -21,5 +21,6 @@ const rootReducer = (state = initState, action) => {
             return state
     }
 }
+
 
 export default rootReducer

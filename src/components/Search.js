@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import { searchPages } from "../actions/searchAction"
 import { connect } from "react-redux"
-import { Input, Button, Form, Label } from "reactstrap";
+import { 
+    Input, 
+    Button, 
+    Form, 
+    Label 
+} from "reactstrap";
 
 
 class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        title: "",
+            title: "",
         };
     }
 
@@ -18,12 +23,12 @@ class Search extends Component {
         })
     }
 
-    //when 'search' is clicked, call the searchPages from searchActions and reset the search bar to be empty
+    //when search is called, return the searchPages results from searchActions and reset the search bar to be empty
     handleSearch = e => {
         e.preventDefault();
         this.props.searchPages(this.state.title)
         this.setState({
-            title: ""
+            title: "",
         })
     }
 
@@ -33,6 +38,7 @@ class Search extends Component {
                 <h1>Welcome to the Book Search App!</h1>
                 <Form onSubmit={this.handleSearch}>
                     <Label for="title">Enter a book title:</Label>
+                    {/* a minimum of three characters are required to perform search */}
                     <Input 
                         type="text" 
                         id="title"
@@ -52,10 +58,10 @@ class Search extends Component {
     }
 }
 
-// need to reference when 'search' is clicked
+// need to reference when search is called, get page 1 of results
 const mapDispatchToProps = dispatch => {
     return {
-        searchPages: (title, page) => dispatch(searchPages(title, 1))
+        searchPages: (title) => dispatch(searchPages(title, 1))
     }
 }
 

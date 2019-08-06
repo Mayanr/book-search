@@ -4,6 +4,7 @@ import './App.css';
 import Search from './components/Search';
 import Results from './components/Results';
 
+
 class App extends Component {
   render (){
     return (
@@ -15,7 +16,7 @@ class App extends Component {
             <img 
               src={require('./img/magnifyBooks.png')} 
               width="150" 
-              style={{paddingTop: 5+"%"}} 
+              style={{paddingTop: 8+"%"}} 
               alt="https://www.trendingtop5.com/wp-content/uploads/2017/08/unnamed.png"/>
           }
         </div>
@@ -24,12 +25,13 @@ class App extends Component {
             {'\u00A9'} August 2019</p>
         </footer>
       </div>
-    )};
+    )
+  };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ searching }) => {
   return{
-    searching: state.searching
+    searching
   }
 }
 

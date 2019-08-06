@@ -11,22 +11,22 @@ import {
 
 const Results = ({ results, title, numResults, activePage }) => {
   const bookList = results.map(book =>{
-    return(
+    return (
       // if there is no author_name provided, print "an unidentified author", otherwise if the array of 'author_name' is more than one person, loop through the array to print names in a more organized manner 
-        <ListGroupItem color="info" key={book.key}>
-          <ListGroupItemHeading>{book.title}</ListGroupItemHeading> 
-          <ListGroupItemText>by 
+      <ListGroupItem color="info" key={book.key}>
+        <ListGroupItemHeading>{book.title}</ListGroupItemHeading> 
+        <ListGroupItemText>by 
           {typeof book.author_name ==="undefined" ? <span> an unidentified author </span>: 
             <span>
               {Array.isArray(book.author_name) && book.author_name !== "undefined"  && book.author_name.length === 1 ?
                 <span> {book.author_name} </span>:
                 <span> 
-                  {book.author_name.map((x, index) =>{
+                  {book.author_name.map((author, index) => {
                     //add a comma after each 'author name' in the array, unless that is the last author of the array.
                       if (typeof book.author_name[index+1] === "undefined"){
-                        return <span key={index}> {x}  </span>
+                        return <span key={index}> {author}  </span>
                       }
-                        return <span key={index}> {x}, </span>
+                        return <span key={index}> {author}, </span>
                     })
                   }
                 </span>
@@ -34,21 +34,24 @@ const Results = ({ results, title, numResults, activePage }) => {
             </span> 
           } 
           {/* display the year first published if available in API, if not, note that the data is unavailable */}
-          <br/> {book.first_publish_year ? <span> originally published in{book.first_publish_year}</span>: <span> year published unavailable</span>}
-          </ListGroupItemText>
+          <br/> {book.first_publish_year ? <span> originally published in {book.first_publish_year}</span>: <span> year published unavailable</span>}
+        </ListGroupItemText>
       </ListGroupItem>
     )
   })
 
   // determine the total amount of pages for this search to display to user
   const totalPages = Math.ceil(numResults/100)
+
   // provide amount of search results with "," in large numbers
   const formattedNumResults = numResults.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
   return (
     <div id="results">
-    {/* if there are results, display some data to the user (number of results, their original search term with the search was conducted on, the page they're viewing out of the total number of pages) */}
-      { results.length>0 && <div><h2>{formattedNumResults} search results for <b>{title}</b>...</h2><p>Page {activePage} of {totalPages} </p></div> }
+      {/* if there are results, display some data to the user (number of results, their original search term with the search was conducted on, the page they're viewing out of the total number of pages) */}
+      { results.length > 0 && <div>
+        <h2>{formattedNumResults} search results for <b>{title}</b>...</h2><p>Page {activePage} of {totalPages} </p>
+      </div> }
       <ListGroup>
         {/* if no results are received from the search, print "No results found for [the search term they entered]", otherwise print out the response list */}
         { results.length ?  <span>{ bookList } </span>: <h2> No results found for <b>{title}</b></h2> }
@@ -59,14 +62,9 @@ const Results = ({ results, title, numResults, activePage }) => {
   )
 }
 
-// variables needed to reference from the store
-const mapStateToProps = state => {
-  return{
-    results: state.results,
-    title: state.title,
-    numResults: state.numResults,
-    activePage: state.activePage
-  }
+// variables needed to render data to this page
+const mapStateToProps = ({ searching, ...state }) => {
+  return state;
 }
 
 
